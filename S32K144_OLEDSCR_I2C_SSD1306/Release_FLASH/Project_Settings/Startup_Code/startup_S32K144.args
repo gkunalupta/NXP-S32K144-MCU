@@ -1,0 +1,22 @@
+-c
+-I../SDK/platform/drivers/inc
+-I../SDK/rtos/osif
+-I"C:/Users/nxf86731/Documents/s32K3144_codes_3.4/S32K144_OLEDSCR_I2C_SSD1306/board"
+-I"C:/Users/nxf86731/Documents/s32K3144_codes_3.4/S32K144_OLEDSCR_I2C_SSD1306/SDK/platform/devices/common"
+-I"C:/Users/nxf86731/Documents/s32K3144_codes_3.4/S32K144_OLEDSCR_I2C_SSD1306/SDK/platform/devices"
+-I"C:/Users/nxf86731/Documents/s32K3144_codes_3.4/S32K144_OLEDSCR_I2C_SSD1306/SDK/platform/devices/S32K144/include"
+-I"C:/Users/nxf86731/Documents/s32K3144_codes_3.4/S32K144_OLEDSCR_I2C_SSD1306/SDK/platform/drivers/inc"
+-I"C:/Users/nxf86731/Documents/s32K3144_codes_3.4/S32K144_OLEDSCR_I2C_SSD1306/SDK/platform/drivers/src/clock/S32K1xx"
+-I"C:/NXP/S32DS.3.4/S32DS/software/S32SDK_S32K1XX_RTM_4.0.2/platform"
+-I"C:/NXP/S32DS.3.4/S32DS/software/S32SDK_S32K1XX_RTM_4.0.2/platform/devices"
+-I"C:/NXP/S32DS.3.4/S32DS/software/S32SDK_S32K1XX_RTM_4.0.2/platform/devices/common"
+-I"C:/NXP/S32DS.3.4/S32DS/software/S32SDK_S32K1XX_RTM_4.0.2/platform/devices/S32K144/include"
+-I"C:/NXP/S32DS.3.4/S32DS/software/S32SDK_S32K1XX_RTM_4.0.2/platform/devices/S32K144/startup"
+-x assembler-with-cpp
+-mcpu=cortex-m4
+-mthumb
+-mfloat-abi=hard
+-mfpu=fpv4-sp-d16
+-specs=nano.specs
+-specs=nosys.specs
+--sysroot="C:/NXP/S32DS.3.4/S32DS/build_tools/gcc_v6.3/gcc-6.3-arm32-eabi/arm-none-eabi/newlib"
