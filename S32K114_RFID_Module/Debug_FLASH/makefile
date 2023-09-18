@@ -42,7 +42,7 @@ S32K114_RFID_Module.siz \
 all: S32K114_RFID_Module.elf secondary-outputs
 
 # Tool invocations
-S32K114_RFID_Module.elf: $(OBJS) C:/Users/nxf86731/Documents/s32K3144_codes_3.4/S32K114_RFID_Module/Project_Settings/Linker_Files/S32K144_64_flash.ld $(USER_OBJS)
+S32K114_RFID_Module.elf: $(OBJS) C:/Users/gettobyte_kunal/Documents/S32K144_ElecronicsV2/NXP-S32K144-MCU/S32K114_RFID_Module/Project_Settings/Linker_Files/S32K144_64_flash.ld $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Standard S32DS C Linker'
 	arm-none-eabi-gcc -o "S32K114_RFID_Module.elf" "@S32K114_RFID_Module.args"  $(USER_OBJS) $(LIBS)

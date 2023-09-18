@@ -1,5 +1,5 @@
 -T
-"C:/Users/nxf86731/Documents/s32K3144_codes_3.4/S32K114_RFID_Module/Project_Settings/Linker_Files/S32K144_64_flash.ld"
+"C:/Users/gettobyte_kunal/Documents/S32K144_ElecronicsV2/NXP-S32K144-MCU/S32K114_RFID_Module/Project_Settings/Linker_Files/S32K144_64_flash.ld"
 -Wl,-Map,"S32K114_RFID_Module.map"
 -Xlinker
 --gc-sections
