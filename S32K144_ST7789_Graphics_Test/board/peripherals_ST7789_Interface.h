@@ -37,7 +37,7 @@ extern  lpspi_state_t ST7789_InterfaceState;
 extern const lpspi_master_config_t ST7789_SPI_Config;
 
 
-void GB_MA_SPI_send_byte_conti(uint8_t *val, uint8_t count);
+void GB_MA_SPI_send_byte_conti(uint8_t *val, uint8_t count, uint32_t timeout);
 
 uint8_t GB_MA_SPI_exchange_byte(uint8_t *val, uint8_t count);
 

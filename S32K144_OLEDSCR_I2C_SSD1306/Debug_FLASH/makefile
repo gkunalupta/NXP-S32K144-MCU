@@ -40,7 +40,7 @@ S32K144_OLEDSCR_I2C_SSD1306.siz \
 all: S32K144_OLEDSCR_I2C_SSD1306.elf secondary-outputs
 
 # Tool invocations
-S32K144_OLEDSCR_I2C_SSD1306.elf: $(OBJS) C:/Users/nxf86731/Documents/s32K3144_codes_3.4/S32K144_OLEDSCR_I2C_SSD1306/Project_Settings/Linker_Files/S32K144_64_flash.ld $(USER_OBJS)
+S32K144_OLEDSCR_I2C_SSD1306.elf: $(OBJS) C:/Users/gettobyte_kunal/Documents/S32K144_ElecronicsV2/NXP-S32K144-MCU/S32K144_OLEDSCR_I2C_SSD1306/Project_Settings/Linker_Files/S32K144_64_flash.ld $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Standard S32DS C Linker'
 	arm-none-eabi-gcc -o "S32K144_OLEDSCR_I2C_SSD1306.elf" "@S32K144_OLEDSCR_I2C_SSD1306.args"  $(USER_OBJS) $(LIBS)
