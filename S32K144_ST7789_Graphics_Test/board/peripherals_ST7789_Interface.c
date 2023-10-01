@@ -45,7 +45,7 @@ instance:
         - readOnly: 'true'
         - bitsPerSec: '1000000'
         - whichPcs: 'LPSPI_PCS3'
-        - pcsPolarity: 'LPSPI_ACTIVE_HIGH'
+        - pcsPolarity: 'LPSPI_ACTIVE_LOW'
         - isPcsContinuous: 'false'
         - bitcount: '8'
         - lpspiSrcClk: '8000000'
@@ -102,7 +102,7 @@ lpspi_state_t ST7789_InterfaceState;
 const lpspi_master_config_t ST7789_SPI_Config = {
   .bitsPerSec = 1000000UL,
   .whichPcs = LPSPI_PCS3,
-  .pcsPolarity = LPSPI_ACTIVE_HIGH,
+  .pcsPolarity = LPSPI_ACTIVE_LOW,
   .isPcsContinuous = false,
   .bitcount = 8U,
   .lpspiSrcClk = 8000000UL,

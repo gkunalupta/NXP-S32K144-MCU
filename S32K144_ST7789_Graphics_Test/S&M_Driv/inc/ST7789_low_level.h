@@ -87,6 +87,8 @@ typedef struct {
     uint8_t height;
     const uint16_t *data;
 } FontDef;
+
+
 /*
  * @brief write data to ST7789 controller
  * @param commonByte -> address of ST7789 that needs to be accessed

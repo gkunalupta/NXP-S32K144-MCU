@@ -1,6 +1,7 @@
 -c
 -I../SDK/platform/drivers/inc
 -I../SDK/rtos/osif
+-I"C:/Users/gettobyte_kunal/Documents/s32k144_programs/S32K144_ST7789_Graphics_Test/S&M_Driv/inc"
 -I"C:/Users/gettobyte_kunal/Documents/s32k144_programs/S32K144_ST7789_Graphics_Test/board"
 -I"C:/Users/gettobyte_kunal/Documents/s32k144_programs/S32K144_ST7789_Graphics_Test/SDK/platform/devices/common"
 -I"C:/Users/gettobyte_kunal/Documents/s32k144_programs/S32K144_ST7789_Graphics_Test/SDK/platform/devices"

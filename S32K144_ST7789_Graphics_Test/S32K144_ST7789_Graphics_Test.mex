@@ -281,7 +281,7 @@
                               <setting name="readOnly" value="true"/>
                               <setting name="bitsPerSec" value="1000000"/>
                               <setting name="whichPcs" value="LPSPI_PCS3"/>
-                              <setting name="pcsPolarity" value="LPSPI_ACTIVE_HIGH"/>
+                              <setting name="pcsPolarity" value="LPSPI_ACTIVE_LOW"/>
                               <setting name="isPcsContinuous" value="false"/>
                               <setting name="bitcount" value="8"/>
                               <setting name="lpspiSrcClk" value="8000000"/>

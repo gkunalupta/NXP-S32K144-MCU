@@ -41,17 +41,23 @@ int main(void)
 		    LPSPI_DRV_MasterInit(INST_ST7789_INTERFACE, &ST7789_InterfaceState, &ST7789_SPI_Config);
 
 
-		    GB_ST7789_SendCommand(ST77XX_COLMOD, &data, 1, 100);
+	    	GB_ST7789_Init();
 
+		   // GB_ST7789_SendCommand(ST77XX_COLMOD, &data, 1, 100);
 
+//		    ST7789_SetAddressWindow(0,0,240,240);
+//		    ST7789_Fill_Color(ST77XX_GREEN);
+//		    OSIF_TimeDelay(1000);
     for(;;)
     {
 
     	GB_ST7789_Init();
 
+//	GB_ST7789_SendCommand(ST77XX_COLMOD, &data, 1, 100);
+//
+	 ST7789_Fill_Color(ST77XX_GREEN);
+	    OSIF_TimeDelay(1000);
 
-    	 GB_ST7789_SendCommand(ST77XX_COLMOD, &data, 1, 100);
-    	 OSIF_TimeDelay(1000);
         if(exit_code != 0)
         {
             break;
