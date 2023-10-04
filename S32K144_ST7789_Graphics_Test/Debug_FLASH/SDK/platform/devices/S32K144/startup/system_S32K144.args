@@ -18,7 +18,7 @@
 -I"C:/NXP/S32DS.3.4/S32DS/software/S32SDK_S32K1XX_RTM_4.0.3/platform/drivers/inc"
 -I"C:/NXP/S32DS.3.4/S32DS/software/S32SDK_S32K1XX_RTM_4.0.3/platform/pal/inc"
 -I"C:/NXP/S32DS.3.4/S32DS/software/S32SDK_S32K1XX_RTM_4.0.3/rtos/osif"
--O1
+-O0
 -fshort-enums
 -fno-jump-tables
 -funsigned-char

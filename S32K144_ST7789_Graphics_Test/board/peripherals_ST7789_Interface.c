@@ -74,7 +74,7 @@ instance:
  *
  */
 
-void GB_MA_SPI_send_byte_conti(uint8_t *val, uint8_t count, uint32_t timeout)
+void GB_MA_SPI_send_byte_conti(uint8_t *val, uint16_t count, uint32_t timeout)
 {
 	static uint8_t rx_value;
 	status_t error;

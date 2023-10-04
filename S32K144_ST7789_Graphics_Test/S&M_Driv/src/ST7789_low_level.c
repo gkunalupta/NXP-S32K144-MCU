@@ -60,7 +60,7 @@ void GB_ST7789_SendData(uint8_t *data, uint32_t data_size)
 	//gb_ST7789_CS_pin_low();
 	gb_ST7789_DC_pin_high();
 
-	GB_MA_SPI_send_byte_conti(data, data_size, 1000);
+	GB_MA_SPI_send_byte_conti(data, data_size, 5000);
 	//gb_ST7789_CS_pin_high();
 }
 void GB_ST7789_Init()
@@ -101,7 +101,7 @@ void GB_ST7789_Init()
 
 	GB_ST7789_SendCommand(ST77XX_DISPON, &data, 0, 10);
 
-//	GB_ST7789_SendCommand(ST77XX_MADCTL, &MADCTL_SetRotation1, 1, 10);
+ GB_ST7789_SendCommand(ST77XX_MADCTL, &MADCTL_SetRotation0, 1, 10);
 	gb_ST7789_CS_pin_high();
 }
 void ST7789_SetAddressWindow(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1)
@@ -114,14 +114,18 @@ void ST7789_SetAddressWindow(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1)
 	uint16_t y_start = y0+ Y_SHIFT;
 	uint16_t y_end = y1 + Y_SHIFT;
 
-	uint8_t ColAddr[4]={ x_start >> 8,x_start & 0xFF,x_end >> 8, x_end & 0xff};
+	//uint8_t ColAddr[4]={ x_start >> 8,x_start & 0xFF,x_end >> 8, x_end & 0xff};
+	uint8_t ColAddr[4]={ 0x00,0x00,0x00, 0xEF};
+
 	GB_ST7789_SendCommand(ST77XX_CASET, ColAddr, 4, 10);
-	uint8_t RowAddr[4] = { y_start >> 8, y_start & 0xFF, y_end >> 8, y_start & 0xFF};
+	//uint8_t RowAddr[4] = { y_start >> 8, y_start & 0xFF, y_end >> 8, y_start & 0xFF};
+	uint8_t RowAddr[4] = { 0x00, 0x50,0x01, 0x3F};
+
 	GB_ST7789_SendCommand(ST77XX_RASET, RowAddr, 4, 10);
 
-	//GB_ST7789_SendCommand(ST77XX_RAMWR, &data, 0, 10);
 	gb_ST7789_CS_pin_high();
 }
+uint16_t total =0;
 void ST7789_Fill_Color(uint16_t color)
 {
 
@@ -139,12 +143,45 @@ void ST7789_Fill_Color(uint16_t color)
 		{
 			uint8_t data[] = { color >>8, color & 0xFF};
 			GB_ST7789_SendData(data, sizeof(data));
-
+total ++;
 		}
 
-	gb_ST7789_CS_pin_low();
+	gb_ST7789_CS_pin_high();
 }
+uint32_t length = 0;
+uint16_t i,j;
+void ST7789_DrawImage(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint8_t *data)
+{
+	uint8_t d_data;
 
+	length = 0;;
+	ST7789_SetAddressWindow(0,0, ST7789_WIDTH -1, ST7789_HEIGHT-1);
+	gb_ST7789_CS_pin_low();
+
+
+	GB_ST7789_SendCommand(ST77XX_RAMWR, &d_data, 0, 10);
+
+for (j =0; j<8; j++)
+{
+	for(i = 0; i<14400; i++)
+	{
+		GB_ST7789_SendData(&data[i + (14399 *j)], 1);
+
+	}
+}
+//	GB_ST7789_SendData(data, 25000);
+//	for (i =0; i < ST7789_WIDTH; i++)
+//		for (j=0; j<ST7789_HEIGHT; j++)
+//		{
+//			uint8_t data[] = { color >>8, color & 0xFF};
+//			GB_ST7789_SendData(data, sizeof(data));
+//total ++;
+//		}
+//
+//
+	gb_ST7789_CS_pin_high();
+
+}
 //void ST7789_DrawFilledRectangle(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color)
 //{
 //	//SPI start: chip select low
