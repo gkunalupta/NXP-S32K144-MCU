@@ -3,9 +3,6 @@
 #include "ST7789_low_level.h"
 #include "peripherals_ST7789_Interface.h"
 
-//#define gb_ST7789_CS_pin_low()  LPSPI_DRV_SetPcs(INST_ST7789_INTERFACE, LPSPI_PCS3, LPSPI_ACTIVE_LOW) //Slave select pin LOW
-//#define gb_ST7789_CS_pin_high() LPSPI_DRV_SetPcs(INST_ST7789_INTERFACE, LPSPI_PCS3, LPSPI_ACTIVE_HIGH )
-
 #define gb_ST7789_CS_pin_low()  PINS_DRV_WritePin(CS_PORT, CS_PIN, 0) //Slave select pin LOW
 #define gb_ST7789_CS_pin_high() PINS_DRV_WritePin(CS_PORT, CS_PIN, 1 )
 
@@ -15,17 +12,6 @@
 #define gb_ST7789_reset_pin_low()  PINS_DRV_WritePin(Reset_PORT, Reset_PIN, 0)
 #define gb_ST7789_reset_pin_high() PINS_DRV_WritePin(Reset_PORT, Reset_PIN, 1)
 
-//uint8_t _rowstart =0;
-//uint8_t _colstart =0;
-//
-//uint16_t windowWidth;
-//uint16_t windowHeight;
-//
-//
-//uint16_t _xstart =0;
-//uint16_t _ystart =0;
-//uint16_t _width =0;
-//uint16_t _height =0;
 
 
 // For ST7789 Driver IC and we are using 240*240 pixel and 1.3 inch display
@@ -44,25 +30,29 @@
 
 void GB_ST7789_SendCommand(uint8_t commandByte, uint8_t *dataBytes, uint8_t numDataBytes, uint32_t timeout)
 {
-	//gb_ST7789_CS_pin_low();
 
 	gb_ST7789_DC_pin_low();
 	GB_MA_SPI_send_byte_conti(&commandByte,1,timeout);
 	gb_ST7789_DC_pin_high();
 
 	GB_MA_SPI_send_byte_conti(dataBytes, numDataBytes, timeout );
-//	gb_ST7789_CS_pin_high();
 
 }
 
 void GB_ST7789_SendData(uint8_t *data, uint32_t data_size)
 {
-	//gb_ST7789_CS_pin_low();
 	gb_ST7789_DC_pin_high();
 
 	GB_MA_SPI_send_byte_conti(data, data_size, 5000);
-	//gb_ST7789_CS_pin_high();
 }
+
+void GB_ST7789_SendDataIm( const uint8_t *data, uint32_t data_size)
+{
+	gb_ST7789_DC_pin_high();
+
+	GB_MA_SPI_send_byte_conti(data, data_size, 5000);
+}
+
 void GB_ST7789_Init()
 {
 
@@ -91,9 +81,9 @@ void GB_ST7789_Init()
 
 	//GB_ST7789_SendCommand(ST77XX_MADCTL, &MADCTL_SetRotation0, 1, 10);
 
-	GB_ST7789_SendCommand(ST77XX_CASET, ColAddr, 4, 10);
-
-	GB_ST7789_SendCommand(ST77XX_RASET, RowAddr, 4, 10);
+//	GB_ST7789_SendCommand(ST77XX_CASET, ColAddr, 4, 10);
+//
+//	GB_ST7789_SendCommand(ST77XX_RASET, RowAddr, 4, 10);
 
 	GB_ST7789_SendCommand(ST77XX_INVON, &data, 0, 10);
 
@@ -154,31 +144,22 @@ void ST7789_DrawImage(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint
 {
 	uint8_t d_data;
 
-	length = 0;;
 	ST7789_SetAddressWindow(0,0, ST7789_WIDTH -1, ST7789_HEIGHT-1);
 	gb_ST7789_CS_pin_low();
-
 
 	GB_ST7789_SendCommand(ST77XX_RAMWR, &d_data, 0, 10);
 
 for (j =0; j<8; j++)
-{
-	for(i = 0; i<14400; i++)
+ {
+	//for(i = 0; i<14400; i++)
 	{
-		GB_ST7789_SendData(&data[i + (14399 *j)], 1);
+		GB_ST7789_SendDataIm(&data[(14400 *j)], 14400);
 
 	}
 }
-//	GB_ST7789_SendData(data, 25000);
-//	for (i =0; i < ST7789_WIDTH; i++)
-//		for (j=0; j<ST7789_HEIGHT; j++)
-//		{
-//			uint8_t data[] = { color >>8, color & 0xFF};
-//			GB_ST7789_SendData(data, sizeof(data));
-//total ++;
-//		}
-//
-//
+
+
+   // GB_ST7789_SendDataIm(data, 27000);
 	gb_ST7789_CS_pin_high();
 
 }
