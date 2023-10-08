@@ -24,14 +24,13 @@ typedef enum
 	ST7789_12_Bit_4_4_4_Input_4K_Color = 0x03,//0b00000011
 	ST7789_16_Bit_5_6_5_Input_64K_Color = 0x55,//0b01010101
 	ST7789_18_Bit_6_6_6_Input_262K_Color = 0x66,//0b01100110
-
-
 }ST7789_Color_mode_values;
 
-#define ST7735_TFTWIDTH_128 128  // for 1.44 and mini
-#define ST7735_TFTWIDTH_80 80    // for mini
-#define ST7735_TFTHEIGHT_128 128 // for 1.44" display
-#define ST7735_TFTHEIGHT_160 160 // for 1.8" and mini display
+#define ST7789_XStart 0  // for 1.44 and mini
+#define ST7789_XEnd 239
+#define ST7789_YStart 80  // for 1.44 and mini
+#define ST7789_YEnd 319
+
 
 #define ST_CMD_DELAY 0x80 // special signifier for command lists
 

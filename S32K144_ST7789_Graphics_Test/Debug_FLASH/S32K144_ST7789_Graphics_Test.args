@@ -13,6 +13,7 @@
 --sysroot="C:/NXP/S32DS.3.4/S32DS/build_tools/gcc_v6.3/gcc-6.3-arm32-eabi/arm-none-eabi/newlib"
 "./Project_Settings/Startup_Code/startup_S32K144.o"
 "./S&M_Driv/src/ST7789_low_level.o"
+"./S&M_Driv/src/fonts.o"
 "./SDK/platform/devices/S32K144/startup/system_S32K144.o"
 "./SDK/platform/devices/startup.o"
 "./SDK/platform/drivers/src/clock/S32K1xx/clock_S32K1xx.o"

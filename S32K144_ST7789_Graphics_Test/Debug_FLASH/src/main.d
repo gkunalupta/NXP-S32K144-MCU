@@ -23,7 +23,9 @@ src/main.o: ../src/main.c \
  ../SDK/platform/drivers/inc/lpspi_shared_function.h \
  C:/Users/gettobyte_kunal/Documents/s32k144_programs/S32K144_ST7789_Graphics_Test/S&M_Driv/inc/ST7789_low_level.h \
  C:/Users/gettobyte_kunal/Documents/s32k144_programs/S32K144_ST7789_Graphics_Test/board/peripherals_ST7789_Interface.h \
- C:/Users/gettobyte_kunal/Documents/s32k144_programs/S32K144_ST7789_Graphics_Test/board/pin_mux.h
+ C:/Users/gettobyte_kunal/Documents/s32k144_programs/S32K144_ST7789_Graphics_Test/board/pin_mux.h \
+ C:/Users/gettobyte_kunal/Documents/s32k144_programs/S32K144_ST7789_Graphics_Test/S&M_Driv/inc/fonts.h \
+ C:/Users/gettobyte_kunal/Documents/s32k144_programs/S32K144_ST7789_Graphics_Test/S&M_Driv/inc/ST7789_low_level.h
 
 C:/Users/gettobyte_kunal/Documents/s32k144_programs/S32K144_ST7789_Graphics_Test/board/sdk_project_config.h:
 
@@ -74,3 +76,7 @@ C:/Users/gettobyte_kunal/Documents/s32k144_programs/S32K144_ST7789_Graphics_Test
 C:/Users/gettobyte_kunal/Documents/s32k144_programs/S32K144_ST7789_Graphics_Test/board/peripherals_ST7789_Interface.h:
 
 C:/Users/gettobyte_kunal/Documents/s32k144_programs/S32K144_ST7789_Graphics_Test/board/pin_mux.h:
+
+C:/Users/gettobyte_kunal/Documents/s32k144_programs/S32K144_ST7789_Graphics_Test/S&M_Driv/inc/fonts.h:
+
+C:/Users/gettobyte_kunal/Documents/s32k144_programs/S32K144_ST7789_Graphics_Test/S&M_Driv/inc/ST7789_low_level.h:

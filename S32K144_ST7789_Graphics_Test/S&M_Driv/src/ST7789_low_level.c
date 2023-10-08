@@ -70,20 +70,14 @@ void GB_ST7789_Init()
 	OSIF_TimeDelay(50);
 
 	gb_ST7789_CS_pin_low();
-		GB_ST7789_SendCommand(ST77XX_SWRESET, &data, 0, 1000 );
 
-		GB_ST7789_SendCommand(ST77XX_SLPOUT, &data, 0, 1000 );
+	GB_ST7789_SendCommand(ST77XX_SWRESET, &data, 0, 1000 );
+
+	GB_ST7789_SendCommand(ST77XX_SLPOUT, &data, 0, 1000 );
 
 	GB_ST7789_SendCommand(ST77XX_COLMOD, &ColorMod, 1, 1000);   // Set color Mode
 
 	GB_ST7789_SendCommand(ST77XX_MADCTL, &MADCTL_SetRotation1, 1, 10);  // Set display rotation
-
-
-	//GB_ST7789_SendCommand(ST77XX_MADCTL, &MADCTL_SetRotation0, 1, 10);
-
-//	GB_ST7789_SendCommand(ST77XX_CASET, ColAddr, 4, 10);
-//
-//	GB_ST7789_SendCommand(ST77XX_RASET, RowAddr, 4, 10);
 
 	GB_ST7789_SendCommand(ST77XX_INVON, &data, 0, 10);
 
@@ -91,9 +85,18 @@ void GB_ST7789_Init()
 
 	GB_ST7789_SendCommand(ST77XX_DISPON, &data, 0, 10);
 
- GB_ST7789_SendCommand(ST77XX_MADCTL, &MADCTL_SetRotation0, 1, 10);
+	GB_ST7789_SendCommand(ST77XX_MADCTL, &MADCTL_SetRotation0, 1, 10);
+
 	gb_ST7789_CS_pin_high();
 }
+
+/**
+ * @brief Set address of DisplayWindow
+ * @param x0&y0 -> x(Xstart) and y(Ystart) axis start
+ * @param x1&y1 -> x(Xend) and y(Yend) axis end
+ * @return none
+ */
+
 void ST7789_SetAddressWindow(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1)
 {
 	uint8_t data;
@@ -104,12 +107,12 @@ void ST7789_SetAddressWindow(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1)
 	uint16_t y_start = y0+ Y_SHIFT;
 	uint16_t y_end = y1 + Y_SHIFT;
 
-	//uint8_t ColAddr[4]={ x_start >> 8,x_start & 0xFF,x_end >> 8, x_end & 0xff};
-	uint8_t ColAddr[4]={ 0x00,0x00,0x00, 0xEF};
+	uint8_t ColAddr[4]={ x_start >> 8,x_start & 0xFF,x_end >> 8, x_end & 0xff};
+	//uint8_t ColAddr[4]={ 0x00,0x00,0x00, 0xEF};
 
 	GB_ST7789_SendCommand(ST77XX_CASET, ColAddr, 4, 10);
-	//uint8_t RowAddr[4] = { y_start >> 8, y_start & 0xFF, y_end >> 8, y_start & 0xFF};
-	uint8_t RowAddr[4] = { 0x00, 0x50,0x01, 0x3F};
+	uint8_t RowAddr[4] = { y_start >> 8, y_start & 0xFF, y_end >> 8, y_end & 0xFF};
+	//uint8_t RowAddr[4] = { 0x00, 0x50,0x01, 0x3F};
 
 	GB_ST7789_SendCommand(ST77XX_RASET, RowAddr, 4, 10);
 
@@ -122,7 +125,7 @@ void ST7789_Fill_Color(uint16_t color)
 	uint16_t i,j;
 	uint8_t data;
 
-	ST7789_SetAddressWindow(0,0, ST7789_WIDTH -1, ST7789_HEIGHT-1);
+	//ST7789_SetAddressWindow(ST7789_XStart,ST7789_YStart, ST7789_XEnd, ST7789_YEnd);
 	gb_ST7789_CS_pin_low();
 
 
@@ -133,7 +136,6 @@ void ST7789_Fill_Color(uint16_t color)
 		{
 			uint8_t data[] = { color >>8, color & 0xFF};
 			GB_ST7789_SendData(data, sizeof(data));
-total ++;
 		}
 
 	gb_ST7789_CS_pin_high();
@@ -144,7 +146,7 @@ void ST7789_DrawImage(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint
 {
 	uint8_t d_data;
 
-	ST7789_SetAddressWindow(0,0, ST7789_WIDTH -1, ST7789_HEIGHT-1);
+//	ST7789_SetAddressWindow(ST7789_XStart,ST7789_YStart, ST7789_XEnd, ST7789_YEnd);
 	gb_ST7789_CS_pin_low();
 
 	GB_ST7789_SendCommand(ST77XX_RAMWR, &d_data, 0, 10);
@@ -162,6 +164,87 @@ for (j =0; j<8; j++)
    // GB_ST7789_SendDataIm(data, 27000);
 	gb_ST7789_CS_pin_high();
 
+}
+/**
+ * @brief Write a char
+ * @param  x&y -> cursor of the start point.
+ * @param ch -> char to write
+ * @param font -> fontstyle of the string
+ * @param color -> color of the char
+ * @param bgcolor -> background color of the char
+ * @return  none
+ */
+void ST7789_WriteChar(uint16_t x, uint16_t y, char ch, FontDef font, uint16_t color, uint16_t bgcolor)
+{
+	uint32_t i, b, j;
+	uint8_t d_ata;
+	//ST7789_SetAddressWindow(ST7789_XStart,ST7789_YStart, ST7789_XEnd, ST7789_YEnd);
+
+	ST7789_SetAddressWindow(x,y, (x+font.width)-1, (y+font.height)-1);
+
+	gb_ST7789_CS_pin_low();
+
+	GB_ST7789_SendCommand(ST77XX_RAMWR, &d_ata, 0, 10);
+
+	for (i = 0; i < font.height; i++)
+	{
+		b = font.data[(ch - 32) * font.height + i];
+		//ST7789_SetAddressWindow(ST7789_XStart,ST7789_YStart+i, ST7789_XEnd, ST7789_YEnd);
+		for (j = 0; j < font.width; j++)
+		{
+			if ((b << j) & 0x8000)
+			{
+				uint8_t data[] = {color >> 8, color & 0xFF};
+
+				GB_ST7789_SendData(data, sizeof(data));
+			}
+			else
+			{
+				uint8_t data[] = {bgcolor >> 8, bgcolor & 0xFF};
+
+				GB_ST7789_SendData(data, sizeof(data));
+			}
+		}
+	}
+	gb_ST7789_CS_pin_high();
+}
+/**
+ * @brief Write a string
+ * @param  x&y -> cursor of the start point.
+ * @param str -> string to write
+ * @param font -> fontstyle of the string
+ * @param color -> color of the string
+ * @param bgcolor -> background color of the string
+ * @return  none
+ * */
+void ST7789_WriteString(uint16_t x, uint16_t y, const char *str, FontDef font, uint16_t color, uint16_t bgcolor)
+{
+	{
+		//gb_ST7789_CS_pin_low();
+		while (*str)
+		{
+			if (x + font.width >= ST7789_WIDTH)
+			{
+				x = 0;
+				y += font.height;
+				if (y + font.height >= ST7789_HEIGHT)
+				{
+					break;
+				}
+
+				if (*str == ' ')
+				{
+					// skip spaces in the beginning of the new line
+					str++;
+					continue;
+				}
+			}
+			ST7789_WriteChar(x, y, *str, font, color, bgcolor);
+			x += font.width;
+			str++;
+		}
+	//gb_ST7789_CS_pin_high();
+	}
 }
 //void ST7789_DrawFilledRectangle(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t color)
 //{
